@@ -1,10 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import { Keyoku } from "../src/client";
 import { AuthenticationError, NotFoundError } from "../src/errors";
-
-// Mock fetch
-const mockFetch = vi.fn();
-global.fetch = mockFetch;
+import { mockFetch, mockResponse, mockErrorResponse } from "./setup";
 
 describe("Keyoku", () => {
   beforeEach(() => {
