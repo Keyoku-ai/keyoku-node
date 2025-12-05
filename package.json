@@ -1,0 +1,84 @@
+{
+  "name": "@keyoku/sdk",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for Keyoku - AI Memory Infrastructure",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./integrations/langchain": {
+      "import": "./dist/integrations/langchain.mjs",
+      "require": "./dist/integrations/langchain.js",
+      "types": "./dist/integrations/langchain.d.ts"
+    },
+    "./integrations/vercel-ai": {
+      "import": "./dist/integrations/vercel-ai.mjs",
+      "require": "./dist/integrations/vercel-ai.js",
+      "types": "./dist/integrations/vercel-ai.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "keyoku",
+    "ai",
+    "memory",
+    "agents",
+    "langchain",
+    "llm",
+    "rag",
+    "vector-store"
+  ],
+  "author": "Keyoku <support@keyoku.dev>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Keyoku-ai/keyoku-node.git"
+  },
+  "homepage": "https://keyoku.dev",
+  "bugs": {
+    "url": "https://github.com/Keyoku-ai/keyoku-node/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "eslint": "^8.55.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  },
+  "peerDependencies": {
+    "langchain": ">=0.1.0",
+    "@langchain/core": ">=0.1.0",
+    "ai": ">=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "langchain": {
+      "optional": true
+    },
+    "@langchain/core": {
+      "optional": true
+    },
+    "ai": {
+      "optional": true
+    }
+  }
+}
