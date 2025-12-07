@@ -46,18 +46,18 @@ export interface SearchResponse {
 
 export interface Entity {
   id: string;
-  name: string;
+  canonicalName: string;
   type: string;
   properties: Record<string, unknown>;
   createdAt: Date;
-  updatedAt: Date;
+  updatedAt?: Date;
 }
 
 export interface Relationship {
   id: string;
-  sourceId: string;
-  targetId: string;
-  type: string;
+  sourceEntityId: string;
+  targetEntityId: string;
+  relationshipType: string;
   properties: Record<string, unknown>;
   createdAt: Date;
 }
@@ -123,4 +123,66 @@ export interface FindPathOptions {
 export interface KeyokuError extends Error {
   statusCode?: number;
   code?: string;
+}
+
+// Cleanup types
+export type CleanupStrategy = "stale" | "low_importance" | "oldest" | "never_accessed";
+
+export interface CleanupSuggestion {
+  strategy: CleanupStrategy;
+  description: string;
+  count: number;
+}
+
+export interface CleanupUsage {
+  memories_stored: number;
+  memories_limit: number;
+  percentage: number;
+}
+
+export interface CleanupSuggestionsResponse {
+  suggestions: CleanupSuggestion[];
+  usage: CleanupUsage;
+}
+
+export interface CleanupRequest {
+  strategy: CleanupStrategy;
+  limit?: number;
+  dry_run?: boolean;
+}
+
+export interface CleanupResponse {
+  deleted_count: number;
+  deleted_ids?: string[];
+}
+
+// GDPR Export types
+export interface ExportResponse {
+  job_id: string;
+  status: string;
+}
+
+// Audit types
+export interface AuditLog {
+  id: string;
+  operation: string;
+  resource_type: string;
+  resource_id?: string;
+  details?: Record<string, unknown>;
+  created_at: string;
+}
+
+export interface AuditLogsResponse {
+  audit_logs: AuditLog[];
+  total: number;
+  has_more: boolean;
+}
+
+export interface AuditLogsQuery {
+  operation?: string;
+  resource_type?: string;
+  start_date?: string;
+  end_date?: string;
+  limit?: number;
+  offset?: number;
 }

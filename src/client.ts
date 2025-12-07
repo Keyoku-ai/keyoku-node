@@ -25,6 +25,9 @@ import { RelationshipsResource } from "./resources/relationships";
 import { GraphResource } from "./resources/graph";
 import { SchemasResource } from "./resources/schemas";
 import { JobsResource } from "./resources/jobs";
+import { CleanupResource } from "./resources/cleanup";
+import { DataResource } from "./resources/data";
+import { AuditResource } from "./resources/audit";
 
 const DEFAULT_BASE_URL = "https://api.keyoku.dev";
 const DEFAULT_TIMEOUT = 30000;
@@ -42,6 +45,9 @@ export class Keyoku {
   public graph: GraphResource;
   public schemas: SchemasResource;
   public jobs: JobsResource;
+  public cleanup: CleanupResource;
+  public data: DataResource;
+  public audit: AuditResource;
 
   constructor(config: KeyokuConfig) {
     this.apiKey = config.apiKey;
@@ -56,6 +62,9 @@ export class Keyoku {
     this.graph = new GraphResource(this);
     this.schemas = new SchemasResource(this);
     this.jobs = new JobsResource(this);
+    this.cleanup = new CleanupResource(this);
+    this.data = new DataResource(this);
+    this.audit = new AuditResource(this);
   }
 
   private getHeaders(): Record<string, string> {
@@ -109,7 +118,7 @@ export class Keyoku {
   async request<T>(
     method: string,
     path: string,
-    options?: { json?: Record<string, unknown>; params?: Record<string, unknown> }
+    options?: { json?: Record<string, unknown>; params?: Record<string, unknown>; headers?: Record<string, string> }
   ): Promise<T> {
     let url = `${this.baseUrl}${path}`;
 
@@ -132,7 +141,7 @@ export class Keyoku {
     try {
       const response = await fetch(url, {
         method,
-        headers: this.getHeaders(),
+        headers: { ...this.getHeaders(), ...options?.headers },
         body: options?.json ? JSON.stringify(options.json) : undefined,
         signal: controller.signal,
       });

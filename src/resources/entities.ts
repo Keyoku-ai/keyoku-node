@@ -32,7 +32,7 @@ export class EntitiesResource {
     return (response.entities || []).map((e) => ({
       ...e,
       createdAt: new Date(e.createdAt),
-      updatedAt: new Date(e.updatedAt),
+      updatedAt: e.updatedAt ? new Date(e.updatedAt) : undefined,
     }));
   }
 
@@ -54,7 +54,7 @@ export class EntitiesResource {
     return (response.entities || []).map((e) => ({
       ...e,
       createdAt: new Date(e.createdAt),
-      updatedAt: new Date(e.updatedAt),
+      updatedAt: e.updatedAt ? new Date(e.updatedAt) : undefined,
     }));
   }
 

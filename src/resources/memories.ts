@@ -57,7 +57,9 @@ export class MemoriesResource {
    * Delete all memories.
    */
   async deleteAll(): Promise<void> {
-    await this.client.request("DELETE", "/v1/memories");
+    await this.client.request("DELETE", "/v1/memories", {
+      headers: { "X-Confirm-Delete": "true" },
+    });
   }
 
   /**
